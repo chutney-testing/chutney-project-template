@@ -1,0 +1,116 @@
+:tip-caption: :bulb:
+:hardbreaks-option:
+
+= Getting started with Chutney
+
+== Setup your project
+
+* Use this template (complete https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template[documentation])
+
+image::doc/use_this_template.png[]
+
+* Git clone your new GitHub repository (complete https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository[documentation])
+
+* Execute scenarios : `./mvnw test`
++
+Or, if you are a Windows user: `mvnw.bat test`
+
+For the next section, we recommend that you open the project with a Java IDE such as https://www.jetbrains.com/fr-fr/idea/download[IntelliJ].
+
+== image:doc/seven.png[] Whaaat's in the booox ?
+
+A link:src/main/kotlin/com/chutneytesting/hello/HelloScenarios.kt[sample scenario], that asserts that the title of the web page `www.google.fr` is exactly `Google`.
+
+Except that if you look closely, there is no reference to `www.google.fr` in this scenario.
+Instead, there is a reference to an abstract _target_: `search_engine`.
+
+This reference allows the same scenario to be executed against different environments.
+
+== Creating another environment
+
+* Open the link:src/main/kotlin/com/chutneytesting/hello/Environments.kt[Environments.kt] file.
+
+* Duplicate the existing `google_fr` and `environment_fr` values as `google_en` and `environment_en`
+
+* Now replace the website extension by `.com` instead of `.fr`
+
+Newly created code should look like
+
+[source,kotlin]
+----
+val google_en = ChutneyTarget(name = "search_engine", url = "https://www.google.com")
+
+val environment_en = ChutneyEnvironment(
+    name = "The English World Wide Web",
+    description = "The World Wide Web, mostly",
+    targets = listOf(
+        google_en
+    )
+)
+----
+
+== Using multiple environments
+
+* Open the link:src/test/kotlin/com/chutneytesting/hello/RunHelloTests.kt[RunHelloTests.kt] file
+
+* Replace `environment_fr` by `environment_en` and run the test
+
+The same scenario without a single modification was run on a different environment.
+
+[TIP]
+====
+Usually, an *environment* represents the different stages used to qualify a software, such as *local*, *dev*, *staging* or *pre-production*.
+====
+
+* Now, if we want our scenario to run on each environment, we can take advantage of `@ParameterizedTest` supplied by JUnit Jupiter
+
+* Modify the test such as the following and re-run the test
+
+[source,kotlin]
+----
+private companion object {
+        @JvmStatic
+        fun environments() = Stream.of(
+            Arguments.of(environment_fr),
+            Arguments.of(environment_en)
+        )
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("environments")
+    fun `search title is displayed`(environment: ChutneyEnvironment) {
+        Launcher("target/chutney/reports").run(search_title_scenario, environment)
+    }
+----
+
+== Starting with a Chutney server
+
+Until then, we worked with the embedded version of Chutney which does not need a server.
+
+However, most of software pieces are built with team work.
+In this case, we want to share scenarios, track their executions and allow people unfamiliar with coding to tinker around.
+
+To allow that, Chutney provides a server version, composed of the execution engine and a UI.
+
+* Start Chutney locally by running `docker compose up&` (Docker compose https://docs.docker.com/compose/[documentation]).
+
+* Access the UI at the address: https://localhost
+
+* Login using the default credentials admin / admin
+
+* Create your first scenario in the UI by clicking on the pen icon in the upper right image:doc/edit_icon.png[]
+
+* Save it as is, by clicking on the save icon image:doc/save_icon.png[]
+
+* Run it by clicking on the run button image:doc/run_button.png[] and choosing the environment on which to run the scenario against
+
+[TIP]
+====
+The dockerized Chutney already knows the aforementioned environments, as the folder `server_conf` is mounted as its root directory in the link:docker-compose.yml[`docker-compose.yml`] file.
+====
+
+== Synchronizing Kotlin scenarios with a server
+
+* Open the link:src/main/kotlin/com/chutneytesting/hello/SynchronizeToServer.kt[SynchronizeToServer.kt] file
+* Execute the `main` function to synchronize any change made locally to the running server
