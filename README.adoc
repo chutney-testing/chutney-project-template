@@ -3,6 +3,8 @@
 
 = Getting started with Chutney
 
+image::https://github.com/ledoyen/chutney-project-template/actions/workflows/build.yml/badge.svg[build]
+
 == Setup your project
 
 * Use this template (complete https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template[documentation])
