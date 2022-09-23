@@ -12,3 +12,13 @@ val environment_fr = ChutneyEnvironment(
         google_fr
     )
 )
+
+val google_en = ChutneyTarget(name = "search_engine", url = "https://www.google.com")
+
+val environment_en = ChutneyEnvironment(
+    name = "The English World Wide Web",
+    description = "The World Wide Web, mostly",
+    targets = listOf(
+        google_en
+    )
+)
