@@ -62,14 +62,14 @@ Usually, an *environment* represents the different stages used to qualify a soft
 
 * Now, if we want our scenario to run on each environment, we can take advantage of `@ParameterizedTest` supplied by JUnit Jupiter
 
-* Look at example in link:src/test/kotlin/com/chutneytesting/hello/RunHelloMultipleEnvironmentTests
+* Look at example in link:src/test/kotlin/com/chutneytesting/hello/RunHelloMultipleEnvironmentTests.kt[RunHelloMultipleEnvironmentTests.kt]
 
 == Starting with a Chutney server
 
-Until then, we worked with the embedded version of Chutney which does not need a server.
+Until then, we worked with the embedded version of Chutney which does not need a server. This fits well within a CI or for a developer local setup.
 
-However, most of software pieces are built with team work.
-In this case, we want to share scenarios, track their executions and allow people unfamiliar with coding to tinker around.
+However, building software is most often a teamwork !
+Doing so, you will need to collaborate and share scenarios, track their executions and allow functional and business analyst to review and be involved in testing their product.
 
 To allow that, Chutney provides a server version, composed of the execution engine and a UI.
 
