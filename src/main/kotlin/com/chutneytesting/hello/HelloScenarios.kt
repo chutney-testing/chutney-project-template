@@ -11,13 +11,13 @@ val search_title_scenario = Scenario(id = 1, title = "Search title displays") {
             target = "search_engine",
             uri = "/",
             validations = mapOf("request accepted" to "status == 200".spEL()),
-            outputs = mapOf("body" to "body".spEL())
+            outputs = mapOf("resultJson" to "body".spEL())
         )
     }
     Then("The search engine title is displayed") {
         AssertTask(
             listOf(
-                "body.contains('<title>Google</title>')".spEL()
+                "resultJson.contains('<title>Google</title>')".spEL()
             )
         )
     }

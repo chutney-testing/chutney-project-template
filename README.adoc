@@ -28,30 +28,26 @@ Instead, there is a reference to an abstract _target_: `search_engine`.
 
 This reference allows the same scenario to be executed against different environments.
 
-== Creating another environment
+== Using multiple environment
 
 * Open the link:src/main/kotlin/com/chutneytesting/hello/Environments.kt[Environments.kt] file.
 
-* Duplicate the existing `google_fr` and `environment_fr` values as `google_en` and `environment_en`
+* Look at the  `google_fr` and `environment_fr` values and  `google_en` and `environment_en` values. They share the same name: `"search_engine"`
 
-* Now replace the website extension by `.com` instead of `.fr`
-
-Newly created code should look like
+* With the same scenario, you can execute the http get task on target `search_engine` on two different environments
 
 [source,kotlin]
 ----
-val google_en = ChutneyTarget(name = "search_engine", url = "https://www.google.com")
-
-val environment_en = ChutneyEnvironment(
-    name = "The English World Wide Web",
-    description = "The World Wide Web, mostly",
-    targets = listOf(
-        google_en
-    )
+ HttpGetTask(
+    target = "search_engine",
+    uri = "/",
+    validations = mapOf("request accepted" to "status == 200".spEL()),
+    outputs = mapOf("resultJson" to "body".spEL())
 )
 ----
 
-== Using multiple environments
+
+== Executing on multiple environments
 
 * Open the link:src/test/kotlin/com/chutneytesting/hello/RunHelloTests.kt[RunHelloTests.kt] file
 
@@ -66,32 +62,14 @@ Usually, an *environment* represents the different stages used to qualify a soft
 
 * Now, if we want our scenario to run on each environment, we can take advantage of `@ParameterizedTest` supplied by JUnit Jupiter
 
-* Modify the test such as the following and re-run the test
-
-[source,kotlin]
-----
-private companion object {
-        @JvmStatic
-        fun environments() = Stream.of(
-            Arguments.of(environment_fr),
-            Arguments.of(environment_en)
-        )
-    }
-
-
-    @ParameterizedTest
-    @MethodSource("environments")
-    fun `search title is displayed`(environment: ChutneyEnvironment) {
-        Launcher("target/chutney/reports").run(search_title_scenario, environment)
-    }
-----
+* Look at example in link:src/test/kotlin/com/chutneytesting/hello/RunHelloMultipleEnvironmentTests.kt[RunHelloMultipleEnvironmentTests.kt]
 
 == Starting with a Chutney server
 
-Until then, we worked with the embedded version of Chutney which does not need a server.
+Until then, we worked with the embedded version of Chutney which does not need a server. This fits well within a CI or for a developer local setup.
 
-However, most of software pieces are built with team work.
-In this case, we want to share scenarios, track their executions and allow people unfamiliar with coding to tinker around.
+However, building software is most often a teamwork !
+Doing so, you will need to collaborate and share scenarios, track their executions and allow functional and business analyst to review and be involved in testing their product.
 
 To allow that, Chutney provides a server version, composed of the execution engine and a UI.
 
@@ -101,11 +79,11 @@ To allow that, Chutney provides a server version, composed of the execution engi
 
 * Login using the default credentials admin / admin
 
-* Create your first scenario in the UI by clicking on the pen icon in the upper right image:doc/edit_icon.png[]
+* Create your first scenario in the UI by clicking on the pen icon in the upper right
 
-* Save it as is, by clicking on the save icon image:doc/save_icon.png[]
+* Save it as is, by clicking on the save button
 
-* Run it by clicking on the run button image:doc/run_button.png[] and choosing the environment on which to run the scenario against
+* Run it by clicking on the run button and choosing the environment on which to run the scenario against
 
 [TIP]
 ====
@@ -116,3 +94,8 @@ The dockerized Chutney already knows the aforementioned environments, as the fol
 
 * Open the link:src/main/kotlin/com/chutneytesting/hello/SynchronizeToServer.kt[SynchronizeToServer.kt] file
 * Execute the `main` function to synchronize any change made locally to the running server
+
+[TIP]
+====
+To synchronize a scenario, the test code has to share an id with the server in order to know what scenario to update. The id is provided in the constructor of Scenario: `Scenario(id = 1, title = "Search title displays")`.
+====
