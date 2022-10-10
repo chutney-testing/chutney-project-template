@@ -10,7 +10,7 @@
         "uri": "/"
       },
       "outputs": {
-        "body": "${#body}"
+        "resultJson": "${#body}"
       },
       "validations": {
         "request accepted": "${#status == 200}"
@@ -25,7 +25,7 @@
         "inputs": {
           "asserts": [
             {
-              "assert-true": "${#body.contains('<title>Google</title>')}"
+              "assert-true": "${#resultJson.contains('<title>Google</title>')}"
             }
           ]
         }

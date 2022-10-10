@@ -42,7 +42,7 @@ This reference allows the same scenario to be executed against different environ
     target = "search_engine",
     uri = "/",
     validations = mapOf("request accepted" to "status == 200".spEL()),
-    outputs = mapOf("body" to "body".spEL())
+    outputs = mapOf("resultJson" to "body".spEL())
 )
 ----
 
