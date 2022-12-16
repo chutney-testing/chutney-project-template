@@ -16,7 +16,7 @@
 
         <kotlin.version>1.6.21</kotlin.version>
 
-        <chutney-kotlin-dsl.version>1.0.0</chutney-kotlin-dsl.version>
+        <chutney-kotlin-dsl.version>[1.0.0,)</chutney-kotlin-dsl.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
