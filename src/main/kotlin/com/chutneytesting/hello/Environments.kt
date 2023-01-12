@@ -3,22 +3,40 @@ package com.chutneytesting.hello
 import com.chutneytesting.kotlin.dsl.ChutneyEnvironment
 import com.chutneytesting.kotlin.dsl.ChutneyTarget
 
-val google_fr = ChutneyTarget(name = "search_engine", url = "https://www.google.fr")
+val unknown = ChutneyTarget(
+    name = "unknown", // dependency based on this string
+    url = "http://un.known.unknown"
+)
 
-val environment_fr = ChutneyEnvironment(
-    name = "The French World Wide Web",
-    description = "The World Wide Web, for strange but beautiful French people",
+val google = ChutneyTarget(
+    name = "website", // dependency based on this string
+    url = "https://www.google.fr"
+)
+
+val googel = google.copy(name = "google")
+
+val GOOGLE = ChutneyEnvironment(
+    name = "GOOGLE",
+    description = "fake environment for test",
     targets = listOf(
-        google_fr
+        google,
+        googel,
+        unknown
     )
 )
 
-val google_en = ChutneyTarget(name = "search_engine", url = "https://www.google.com")
+////////
 
-val environment_en = ChutneyEnvironment(
-    name = "The English World Wide Web",
-    description = "The World Wide Web, mostly",
+val chutney = ChutneyTarget(
+    name = "website",
+    url = "https://www.chutney-testing.com"
+)
+
+val CHUTNEY = ChutneyEnvironment(
+    name = "CHUTNEY",
+    description = "fake environment for test",
     targets = listOf(
-        google_en
+        chutney,
+        googel
     )
 )

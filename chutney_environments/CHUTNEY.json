@@ -1,0 +1,14 @@
+{
+    "name": "CHUTNEY",
+    "description": "fake environment for test",
+    "targets": [
+        {
+            "name": "website",
+            "url": "https://www.chutney-testing.com"
+        },
+        {
+            "name": "google",
+            "url": "https://www.google.fr"
+        }
+    ]
+}

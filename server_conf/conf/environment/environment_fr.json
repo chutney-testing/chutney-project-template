@@ -1,8 +1,0 @@
-{
-  "name" : "environment_fr",
-  "description" : "The World Wide Web, for strange but beautiful French people",
-  "targets" : [ {
-    "name" : "search_engine",
-    "url" : "https://www.google.fr"
-  } ]
-}

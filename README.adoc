@@ -3,7 +3,7 @@
 
 = Getting started with Chutney
 
-image::https://github.com/ledoyen/chutney-project-template/actions/workflows/build.yml/badge.svg[build]
+image::https://github.com/chutney-testing/chutney-project-template/actions/workflows/build.yml/badge.svg[build]
 
 == Setup your project
 
@@ -87,7 +87,7 @@ To allow that, Chutney provides a server version, composed of the execution engi
 
 [TIP]
 ====
-The dockerized Chutney already knows the aforementioned environments, as the folder `server_conf` is mounted as its root directory in the link:docker-compose.yml[`docker-compose.yml`] file.
+The dockerized Chutney already knows the aforementioned environments, as the folder `chutney_environments` is mounted as its root directory in the link:docker-compose.yml[`docker-compose.yml`] file.
 ====
 
 == Synchronizing Kotlin scenarios with a server
