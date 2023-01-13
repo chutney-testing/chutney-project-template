@@ -13,32 +13,44 @@ image::doc/use_this_template.png[]
 
 * Git clone your new GitHub repository (complete https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository[documentation])
 
-* Execute scenarios : `./mvnw test`
+* Execute scenarios :
+    ** `./mvnw clean verify`
+    ** `./gradlew clean test`
 +
-Or, if you are a Windows user: `mvnw.bat test`
+Or, if you are a Windows user:
+    ** `mvnw.bat clean verify`
+    ** `gradlew.bat clean test`
 
 For the next section, we recommend that you open the project with a Java IDE such as https://www.jetbrains.com/fr-fr/idea/download[IntelliJ].
 
 == image:doc/seven.png[] Whaaat's in the booox ?
 
-A link:src/main/kotlin/com/chutneytesting/hello/HelloScenarios.kt[sample scenario], that asserts that the title of the web page `www.google.fr` is exactly `Google`.
+A link:src/main/kotlin/com/chutneytesting/hello/ScenarioExample.kt[sample scenarios], in there you will find 4 scenarios :
 
-Except that if you look closely, there is no reference to `www.google.fr` in this scenario.
-Instead, there is a reference to an abstract _target_: `search_engine`.
-
-This reference allows the same scenario to be executed against different environments.
+* One call a search engine and another one call a chutney website
+    ** They both show how to reference a target, decoupled from any environment (see next section)
+       If you look closely, there is no reference to `google.fr` or `google.com` nor any other URLs.
+       Instead, there is a reference to an abstract _target_: `search_engine` or `chutney`.
+       This reference allows the same scenario to run on different environments without being couple to technical details such as URLs, authentication etc.
+    ** The first scenario also shows how to do an assertion from a "business" point of view, using a separate step
+    ** The second scenario shows how to do an assertion from a "technical" point of view, using an inner step validation
+* One scenario call an non existing website
+    ** It is called in link:src/test/kotlin/com/chutneytesting/hello/LauncherTest.kt[LauncherTest] to show how to expect a step failure using the Launcher
+* The last scenario shows how to pass parameters
+    ** It is called in link:src/test/kotlin/com/chutneytesting/hello/ChutneyJunitEngineTest.kt[ChutneyJunitEngineTest]
 
 == Using multiple environment
 
 * Open the link:src/main/kotlin/com/chutneytesting/hello/Environments.kt[Environments.kt] file.
 
-* Look at the  `google_fr` and `environment_fr` values and  `google_en` and `environment_en` values. They share the same name: `"search_engine"`
+* Look at the `en_search_engine` and `fr_search_engine` values. The later is a copy, so they share the same name: `"search_engine"` but have different URL.
+Then, they are set in different environment, respectively `english_web` and `french_web`.
 
-* With the same scenario, you can execute the http get task on target `search_engine` on two different environments
+* With the same scenario, you can execute the http get action on target `search_engine` on two different environments
 
 [source,kotlin]
 ----
- HttpGetTask(
+ HttpGetAction(
     target = "search_engine",
     uri = "/",
     validations = mapOf("request accepted" to "status == 200".spEL()),
@@ -49,9 +61,9 @@ This reference allows the same scenario to be executed against different environ
 
 == Executing on multiple environments
 
-* Open the link:src/test/kotlin/com/chutneytesting/hello/RunHelloTests.kt[RunHelloTests.kt] file
+* Open the link:src/test/kotlin/com/chutneytesting/hello/ChutneyJunitEngineTest.kt[ChutneyJunitEngineTest.kt] file
 
-* Replace `environment_fr` by `environment_en` and run the test
+* Replace `english_web` by `french_web` and run the test
 
 The same scenario without a single modification was run on a different environment.
 
@@ -62,7 +74,7 @@ Usually, an *environment* represents the different stages used to qualify a soft
 
 * Now, if we want our scenario to run on each environment, we can take advantage of `@ParameterizedTest` supplied by JUnit Jupiter
 
-* Look at example in link:src/test/kotlin/com/chutneytesting/hello/RunHelloMultipleEnvironmentTests.kt[RunHelloMultipleEnvironmentTests.kt]
+* Look at example in link:src/test/kotlin/com/chutneytesting/hello/LauncherTest.kt[LauncherTest.kt]
 
 == Starting with a Chutney server
 

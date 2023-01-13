@@ -2,60 +2,44 @@ package com.chutneytesting.hello
 
 import com.chutneytesting.kotlin.dsl.*
 
-val call_google = Scenario(id = 13, title = "Call google") {
-    Given("Create variable") {
-        ContextPutAction(
-            entries = mapOf(
-                "name" to "Chutney"
-            )
-        )
-    }
-    And("Some http call") {
+// An id is required when you want to sync the scenario with an on premise Chutney Server
+val call_search_engine = Scenario(id = 13, title = "Call a search engine") {
+    When("Calling a famous search engine") {
         HttpGetAction(
-            target = "google",
+            target = "search_engine",
             uri = "/"
         )
     }
-    When("Hello world") {
-        SuccessAction()
-    }
-    Then("Stupid assert") {
-        StringAssertAction(
-            document = "name".spEL,
-            expected = "Chutney"
-        )
+    Then("It should always be running") {
+        AssertAction(listOf("status == 200".spEL))
     }
 }
 
-val call_a_website = Scenario(title = "Call a website") {
+val call_a_chutney_website = Scenario(title = "Call a Chutney website") {
     When("Hello website") {
         HttpGetAction(
-            target = "website",
+            target = "chutney",
             uri = "/",
-            validations = mapOf("http 200" to "status == 200".spEL())
+            validations = mapOf("Chutney says Hello" to "status == 200".spEL())
         )
-    }
-    Then("Stupid assert") {
-        SuccessAction()
     }
 }
 
+// An id is required when you want to sync the scenario with an on premise Chutney Server
 val should_fail = Scenario(id = 37, title = "Call unknown and fail") {
     When("Hello unknown") {
         HttpGetAction(
             target = "unknown",
-            uri = "/"
+            uri = "/",
+            validations = mapOf("server says Hello" to "status == 200".spEL())
         )
     }
-    Then("Fail") {
-        AssertAction(listOf("status == 200".spEL))
-    }
-    And("Should not be executed") {
+    Then("This step should not be executed") {
         SuccessAction()
     }
 }
 
-fun alwaysSuccessWithParam(param: String) = Scenario(title = "Always success with $param") {
+fun alwaysSuccessWithParam(param: String) = Scenario(title = "Scenario succeed for the $param time") {
     When("Just ok") {
         SuccessAction()
     }
@@ -63,6 +47,6 @@ fun alwaysSuccessWithParam(param: String) = Scenario(title = "Always success wit
 
 // The following is a test suite used for syncing a list of scenarios with an on premise Chutney Server
 val test_suite = listOf(
-    call_google,
+    call_search_engine,
     should_fail
 )
