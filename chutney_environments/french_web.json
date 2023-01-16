@@ -1,0 +1,14 @@
+{
+    "name": "french_web",
+    "description": "fake environment for test",
+    "targets": [
+        {
+            "name": "search_engine",
+            "url": "https://www.google.fr"
+        },
+        {
+            "name": "chutney",
+            "url": "https://github.com/chutney-testing"
+        }
+    ]
+}

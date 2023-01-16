@@ -8,5 +8,5 @@ val chutneyLocalServer = ChutneyServerInfo(
 )
 
 fun main() {
-    hello_campaign.forEach { it.synchronise(serverInfo = chutneyLocalServer, updateRemote = true) }
+    test_suite.forEach { it.synchronise(serverInfo = chutneyLocalServer, updateRemote = true) }
 }

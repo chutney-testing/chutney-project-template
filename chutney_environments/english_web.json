@@ -1,0 +1,18 @@
+{
+    "name": "english_web",
+    "description": "fake environment for test",
+    "targets": [
+        {
+            "name": "search_engine",
+            "url": "https://www.google.com"
+        },
+        {
+            "name": "unknown",
+            "url": "http://un.known.unknown"
+        },
+        {
+            "name": "chutney",
+            "url": "https://www.chutney-testing.com"
+        }
+    ]
+}

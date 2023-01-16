@@ -8,14 +8,20 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+.mvn/maven.config
 
 # Ignoring Maven wrapper to be downloaded
 .mvn/wrapper/maven-wrapper.jar
 
+# Gradle
+.gradle
+**/build/
+!src/**/build/
+gradle-app.setting
+gradle.properties
+!gradle-wrapper.jar
+.gradletasknamecache
 
 # IntelliJ
 .idea/
 *.iml
-
-# Chutney
-server_conf

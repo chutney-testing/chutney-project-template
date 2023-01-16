@@ -1,8 +1,0 @@
-{
-  "name" : "environment_en",
-  "description" : "The English World Wide Web",
-  "targets" : [ {
-    "name" : "search_engine",
-    "url" : "https://www.google.com"
-  } ]
-}

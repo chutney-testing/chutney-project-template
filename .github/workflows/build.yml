@@ -19,3 +19,5 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-maven-
             - run: ./mvnw -U test
+            - name: Build with Gradle
+              run: ./gradlew clean build

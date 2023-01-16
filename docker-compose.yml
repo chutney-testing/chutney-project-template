@@ -7,7 +7,7 @@ services:
         ports:
             - "8081:8443"
         volumes:
-            - ./server_conf:/.chutney
+            - ./chutney_environments:/.chutney
     chutney-ui:
         container_name: chutney-ui
         image: ghcr.io/chutney-testing/chutney/ui:latest
