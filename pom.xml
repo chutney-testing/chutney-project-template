@@ -54,6 +54,10 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
+                        <systemPropertyVariables>
+                            <chutney.environment.rootPath>chutney_environments</chutney.environment.rootPath>
+                            <chutney.report.rootPath>target/chutney/reports</chutney.report.rootPath>
+                        </systemPropertyVariables>
                         <skip>true</skip>
                     </configuration>
                 </plugin>
