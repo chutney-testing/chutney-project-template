@@ -5,7 +5,7 @@ version = "0.1.0-SNAPSHOT"
 description = "A GitHub project template to help you start with Chutney Kotlin DSL"
 
 plugins {
-    kotlin("jvm") version "1.6.21" apply true
+    kotlin("jvm") version "1.8.22" apply true
 }
 
 repositories {
@@ -13,13 +13,13 @@ repositories {
 }
 
 dependencies {
-    api("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
-    api("com.chutneytesting:chutney-kotlin-dsl:[1.0.0,)")
+    api("org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
+    api("com.chutneytesting:chutney-kotlin-dsl:[2.0.0,)")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "11"
+    kotlinOptions.jvmTarget = "17"
 }
 
 tasks.withType<JavaCompile> {
