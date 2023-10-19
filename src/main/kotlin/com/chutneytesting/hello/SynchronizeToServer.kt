@@ -4,7 +4,7 @@ import com.chutneytesting.kotlin.synchronize.synchronise
 import com.chutneytesting.kotlin.util.ChutneyServerInfo
 
 val chutneyLocalServer = ChutneyServerInfo(
-    remoteServerUrl = "https://localhost:8081", remoteUserName = "admin", remoteUserPassword = "admin"
+    url = "https://localhost:8081", user = "admin", password = "admin"
 )
 
 fun main() {

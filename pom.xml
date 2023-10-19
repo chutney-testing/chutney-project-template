@@ -12,12 +12,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
-        <kotlin.version>1.6.21</kotlin.version>
+        <kotlin.version>1.8.22</kotlin.version>
 
-        <chutney-kotlin-dsl.version>[1.0.0,)</chutney-kotlin-dsl.version>
+        <chutney-kotlin-dsl.version>[2.0.0,)</chutney-kotlin-dsl.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
 
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
